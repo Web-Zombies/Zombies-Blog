@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://xchao.work</id>
+    <title> • Posts by &#34;node&#34; category</title>
+    <link href="http://xchao.work" />
+    <updated>2022-03-26T15:31:14.388Z</updated>
+    <category term="Vue Baidu Map" />
+    <entry>
+        <id>http://xchao.work/2022/03/26/computer-science2/node/hello-world2/</id>
+        <title>Node</title>
+        <link rel="alternate" href="http://xchao.work/2022/03/26/computer-science2/node/hello-world2/"/>
+        <content type="html">&lt;h1 id=&#34;node&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#node&#34;&gt;#&lt;/a&gt; Node&lt;/h1&gt;
+</content>
+        <updated>2022-03-26T15:31:14.388Z</updated>
+    </entry>
+</feed>

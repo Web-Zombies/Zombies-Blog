@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title> • Posts by &#34;后端&#34; category</title>
+        <link>http://xchao.work</link>
+        <description></description>
+        <language>zh-CN</language>
+        <pubDate>Sat, 26 Mar 2022 23:31:14 +0800</pubDate>
+        <lastBuildDate>Sat, 26 Mar 2022 23:31:14 +0800</lastBuildDate>
+        <category>Vue Baidu Map</category>
+        <item>
+            <guid isPermalink="true">http://xchao.work/2022/03/26/computer-science2/node/hello-world2/</guid>
+            <title>Node</title>
+            <link>http://xchao.work/2022/03/26/computer-science2/node/hello-world2/</link>
+            <pubDate>Sat, 26 Mar 2022 23:31:14 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;node&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#node&#34;&gt;#&lt;/a&gt; Node&lt;/h1&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>
