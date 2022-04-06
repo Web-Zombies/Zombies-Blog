@@ -1,0 +1,16 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "null • All posts by \"音乐\" category",
+    "description": "",
+    "home_page_url": "http://xchao.work",
+    "items": [
+        {
+            "id": "http://xchao.work/2022/03/26/computer-science3/music/singer/",
+            "url": "http://xchao.work/2022/03/26/computer-science3/music/singer/",
+            "title": "音乐",
+            "date_published": "2022-03-26T09:03:03.001Z",
+            "content_html": "<h1 id=\"喜欢的歌手\"><a class=\"markdownIt-Anchor\" href=\"#喜欢的歌手\">#</a> 喜欢的歌手</h1>\n<div class=\"links\"><div class=\"item\" title=\"Vicetone\" style=\"--block-color:#e9546b;\"><span class=\"exturl image\" data-url=\"aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvYXJ0aXN0P2lkPTc0NzAzMA==\" data-background-image=\"https://p1.music.126.net/kD9PJNtDT0kXoOCoII29rQ==/109951167135307880.jpg?param=180y180\"></span>\n          <div class=\"info\">\n          <span class=\"exturl title\" data-url=\"aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvYXJ0aXN0P2lkPTc0NzAzMA==\">Vicetone</span>\n          <p class=\"desc\">V神 & 知名荷兰双人DJ组合</p>\n          </div></div><div class=\"item\" title=\"ZeddOfficial2\" style=\"--block-color:#e9546b;\"><span class=\"exturl image\" data-url=\"aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvYXJ0aXN0P2lkPTQ2Mzc2\" data-background-image=\"https://p1.music.126.net/V0bbQIKfOKyeXNqmmIiCsw==/109951166683750410.jpg?param=180y180\"></span>\n          <div class=\"info\">\n          <span class=\"exturl title\" data-url=\"aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvYXJ0aXN0P2lkPTQ2Mzc2\">ZeddOfficial2</span>\n          <p class=\"desc\">知名DJ & 电子音乐制作人</p>\n          </div></div><div class=\"item\" title=\"Maroon 5\" style=\"--block-color:#e9546b;\"><span class=\"exturl image\" data-url=\"aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvYXJ0aXN0P2lkPTk2MjY2\" data-background-image=\"https://p1.music.126.net/rrAKuCwt7Xr9Om6064CIyw==/109951166116603900.jpg?param=180y180\"></span>\n          <div class=\"info\">\n          <span class=\"exturl title\" data-url=\"aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvYXJ0aXN0P2lkPTk2MjY2\">Maroon 5</span>\n          <p class=\"desc\">魔力红 & 美国知名流行摇滚乐团</p>\n          </div></div><div class=\"item\" title=\"林宥嘉\" style=\"--block-color:#e9546b;\"><span class=\"exturl image\" data-url=\"aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvYXJ0aXN0P2lkPTM2ODU=\" data-background-image=\"https://p1.music.126.net/DeH1T1OKwTL2bIg3l8L21A==/109951163186203713.jpg?param=180y180\"></span>\n          <div class=\"info\">\n          <span class=\"exturl title\" data-url=\"aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvYXJ0aXN0P2lkPTM2ODU=\">林宥嘉</span>\n          <p class=\"desc\">歌手 & 音乐制作人</p>\n          </div></div><div class=\"item\" title=\"Zombies\" style=\"--block-color:#e9546b;\"><span class=\"exturl image\" data-url=\"aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTQ5MzM1MzAzNQ==\" data-background-image=\"https://p1.music.126.net/te-eDSi21NicUGGWIlrdRw==/109951163686519212.jpg?param=180y180\"></span>\n          <div class=\"info\">\n          <span class=\"exturl title\" data-url=\"aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTQ5MzM1MzAzNQ==\">Zombies</span>\n          <p class=\"desc\">啥也不是</p>\n          </div></div></div>\n",
+            "tags": []
+        }
+    ]
+}

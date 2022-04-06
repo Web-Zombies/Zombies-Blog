@@ -1,0 +1,527 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="" href="http://xchao.work/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="" href="http://xchao.work/atom.xml" />
+<link rel="alternate" type="application/json" title="" href="http://xchao.work/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="Vue Baidu Map" />
+
+
+<link rel="canonical" href="http://xchao.work/2022/03/28/computer-science/web/BaiduMap/">
+
+
+
+  <title>
+Vue Baidu Map 百度地图的使用 - web - 前端 |
+Palpitate</title> 
+<meta name="generator" content="Hexo 5.4.1"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Vue Baidu Map 百度地图的使用
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2022-03-28 19:50:12">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2022-03-28T19:50:12+08:00">2022-03-28</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>2.8k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>3 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Palpitate</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giph4wqtg4j20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclj9410cj20zk0m8h12.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicliierfjj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclhfehz7j20zk0m8u0x.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipevarprfj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclwrdwyaj20zk0m8are.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/" itemprop="item" rel="index" title="分类于 前端"><span itemprop="name">前端</span></a>
+<meta itemprop="position" content="1" /></span>
+<i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/web/" itemprop="item" rel="index" title="分类于 web"><span itemprop="name">web</span></a>
+<meta itemprop="position" content="2" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="http://xchao.work/2022/03/28/computer-science/web/BaiduMap/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="Zombies">
+    <meta itemprop="description" content="如果感到压力大的话  就听首自己喜欢的歌吧, ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="百度地图的使用"><a class="markdownIt-Anchor" href="#百度地图的使用">#</a> 百度地图的使用</h1>
+<p><span class="exturl" data-url="aHR0cHM6Ly9kYWZyb2suZ2l0aHViLmlvL3Z1ZS1iYWlkdS1tYXAvIy96aC9zdGFydC90aGlyZC1wYXJ0eQ==">Vue Baidu Map</span><br>
+<span class="label warning">:mapClick=&quot;false&quot;</span><br>
+<ins class="dot"> 关闭百度地图 默认的地点点击详情效果</ins><br>
+<span class="label warning">:scroll-wheel-zoom=&quot;true&quot;</span><br>
+<ins class="dot"> 鼠标滚轮实现缩放地图</ins></p>
+<figure class="highlight js"><figcaption data-lang="JavaScript"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token operator">&lt;</span>baidu<span class="token operator">-</span>map <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"bm-view"</span> ak<span class="token operator">=</span><span class="token string">"你的百度地图key"</span> <span class="token operator">:</span>center<span class="token operator">=</span><span class="token string">"center"</span> <span class="token operator">:</span>zoom<span class="token operator">=</span><span class="token string">"zoom"</span> @ready<span class="token operator">=</span><span class="token string">"handler"</span> <span class="token operator">:</span>mapClick<span class="token operator">=</span><span class="token string">"false"</span> <span class="token operator">:</span>scroll<span class="token operator">-</span>wheel<span class="token operator">-</span>zoom<span class="token operator">=</span><span class="token string">"true"</span> <span class="token operator">:</span>mapStyle<span class="token operator">=</span><span class="token string">"mapStyle"</span><span class="token operator">></span></pre></td></tr><tr><td data-num="2"></td><td><pre>  <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>缩放控件<span class="token operator">--</span><span class="token operator">></span></pre></td></tr><tr><td data-num="3"></td><td><pre>  <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> <span class="token operator">&lt;</span>bm<span class="token operator">-</span>navigation anchor<span class="token operator">=</span><span class="token string">"BMAP_ANCHOR_BOTTOM_RIGHT"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>bm<span class="token operator">-</span>navigation<span class="token operator">></span> <span class="token operator">--</span><span class="token operator">></span></pre></td></tr><tr><td data-num="4"></td><td><pre>  <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>聚合动态添加的点坐标<span class="token operator">--</span><span class="token operator">></span></pre></td></tr><tr><td data-num="5"></td><td><pre>  <span class="token operator">&lt;</span>bm<span class="token operator">-</span>marker<span class="token operator">-</span>clusterer <span class="token operator">:</span>averageCenter<span class="token operator">=</span><span class="token string">"true"</span><span class="token operator">></span></pre></td></tr><tr><td data-num="6"></td><td><pre>    <span class="token operator">&lt;</span>bm<span class="token operator">-</span>marker v<span class="token operator">-</span><span class="token keyword">for</span><span class="token operator">=</span><span class="token string">"(marker) of markers"</span> <span class="token operator">:</span>key<span class="token operator">=</span><span class="token string">"marker.id"</span> <span class="token operator">:</span>icon<span class="token operator">=</span><span class="token string">"&#123;url:mapIcon,size: &#123;width: 66, height: 66&#125;&#125;"</span> <span class="token operator">:</span>position<span class="token operator">=</span><span class="token string">"&#123;lng: marker.lng, lat: marker.lat&#125;"</span> <span class="token operator">:</span>dragging<span class="token operator">=</span><span class="token string">"false"</span> @click<span class="token operator">=</span><span class="token string">"marker.show= true"</span><span class="token operator">></span></pre></td></tr><tr><td data-num="7"></td><td><pre>      <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>信息窗体<span class="token operator">--</span><span class="token operator">></span></pre></td></tr><tr><td data-num="8"></td><td><pre>      <span class="token operator">&lt;</span>bm<span class="token operator">-</span>info<span class="token operator">-</span>window <span class="token operator">:</span>position<span class="token operator">=</span><span class="token string">"&#123;lng: marker.lng, lat: marker.lat&#125;"</span> <span class="token operator">:</span>show<span class="token operator">=</span><span class="token string">"marker.show"</span> @close<span class="token operator">=</span><span class="token string">"marker.show= false"</span> @open<span class="token operator">=</span><span class="token string">"marker.show = true"</span><span class="token operator">></span></pre></td></tr><tr><td data-num="9"></td><td><pre>          <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token operator">&lt;</span>span <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"left"</span><span class="token operator">></span>投产时间<span class="token operator">:</span><span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span><span class="token operator">&lt;</span>span <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"right"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span></pre></td></tr><tr><td data-num="10"></td><td><pre>          <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token operator">&lt;</span>span <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"left"</span><span class="token operator">></span>行业类型<span class="token operator">:</span><span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span><span class="token operator">&lt;</span>span <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"right"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span></pre></td></tr><tr><td data-num="11"></td><td><pre>          <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token operator">&lt;</span>span <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"left zrr"</span><span class="token operator">></span>责任人<span class="token operator">:</span><span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span><span class="token operator">&lt;</span>span <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"right"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span></pre></td></tr><tr><td data-num="12"></td><td><pre>          <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token operator">&lt;</span>span <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"left"</span><span class="token operator">></span>联系电话<span class="token operator">:</span><span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span><span class="token operator">&lt;</span>span <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"right"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span></pre></td></tr><tr><td data-num="13"></td><td><pre>          <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token operator">&lt;</span>span <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"left"</span><span class="token operator">></span>污染物体<span class="token operator">:</span><span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span><span class="token operator">&lt;</span>span <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"right "</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span></pre></td></tr><tr><td data-num="14"></td><td><pre>          <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token operator">&lt;</span>span <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"left"</span><span class="token operator">></span>所在地址<span class="token operator">:</span><span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span><span class="token operator">&lt;</span>span <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"right"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>span<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span></pre></td></tr><tr><td data-num="15"></td><td><pre>      <span class="token operator">&lt;</span><span class="token operator">/</span>bm<span class="token operator">-</span>info<span class="token operator">-</span>window<span class="token operator">></span></pre></td></tr><tr><td data-num="16"></td><td><pre>    <span class="token operator">&lt;</span><span class="token operator">/</span>bm<span class="token operator">-</span>marker<span class="token operator">></span></pre></td></tr><tr><td data-num="17"></td><td><pre>  <span class="token operator">&lt;</span><span class="token operator">/</span>bm<span class="token operator">-</span>marker<span class="token operator">-</span>clusterer<span class="token operator">></span></pre></td></tr><tr><td data-num="18"></td><td><pre><span class="token operator">&lt;</span><span class="token operator">/</span>baidu<span class="token operator">-</span>map<span class="token operator">></span></pre></td></tr></table></figure><figure class="highlight js"><figcaption data-lang="JavaScript"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token operator">&lt;</span>script<span class="token operator">></span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token comment">// 百度地图 局部引用</span></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token keyword">import</span> mapIconPath <span class="token keyword">from</span> <span class="token string">"../../../assets/images/home/mark.png"</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token keyword">import</span> BaiduMap <span class="token keyword">from</span> <span class="token string">'vue-baidu-map/components/map/Map.vue'</span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token keyword">import</span> BmNavigation <span class="token keyword">from</span> <span class="token string">'vue-baidu-map/components/controls/Navigation'</span></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token keyword">import</span> BmMarkerClusterer <span class="token keyword">from</span> <span class="token string">'vue-baidu-map/components/extra/MarkerClusterer'</span></pre></td></tr><tr><td data-num="7"></td><td><pre><span class="token keyword">import</span> BmMarker <span class="token keyword">from</span> <span class="token string">'vue-baidu-map/components/overlays/Marker'</span></pre></td></tr><tr><td data-num="8"></td><td><pre><span class="token keyword">import</span> BmInfoWindow <span class="token keyword">from</span> <span class="token string">'vue-baidu-map/components/overlays/InfoWindow'</span></pre></td></tr><tr><td data-num="9"></td><td><pre><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>  <span class="token literal-property property">components</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>    BaiduMap<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="12"></td><td><pre>    BmNavigation<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="13"></td><td><pre>    BmMarkerClusterer<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="14"></td><td><pre>    BmMarker<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="15"></td><td><pre>    BmInfoWindow</pre></td></tr><tr><td data-num="16"></td><td><pre>  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="17"></td><td><pre>  <span class="token function">data</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="18"></td><td><pre>    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="19"></td><td><pre>      <span class="token comment">// 默认的中心区域     </span></pre></td></tr><tr><td data-num="20"></td><td><pre>      <span class="token literal-property property">center</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">lng</span><span class="token operator">:</span> <span class="token number">112.98</span><span class="token punctuation">,</span> <span class="token literal-property property">lat</span><span class="token operator">:</span> <span class="token number">28.19</span> <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> </pre></td></tr><tr><td data-num="21"></td><td><pre>      <span class="token comment">// 地图缩放层级         </span></pre></td></tr><tr><td data-num="22"></td><td><pre>      <span class="token literal-property property">zoom</span><span class="token operator">:</span> <span class="token number">15</span><span class="token punctuation">,</span> </pre></td></tr><tr><td data-num="23"></td><td><pre>      <span class="token literal-property property">mapIcon</span><span class="token operator">:</span> mapIconPath<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="24"></td><td><pre>      <span class="token comment">// 地图主题</span></pre></td></tr><tr><td data-num="25"></td><td><pre>      <span class="token literal-property property">mapStyle</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>  </pre></td></tr><tr><td data-num="26"></td><td><pre>        <span class="token literal-property property">style</span><span class="token operator">:</span> <span class="token string">"dark"</span></pre></td></tr><tr><td data-num="27"></td><td><pre>      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="28"></td><td><pre>      <span class="token comment">// 地图坐标点</span></pre></td></tr><tr><td data-num="29"></td><td><pre>    <span class="token literal-property property">markers</span><span class="token operator">:</span> <span class="token punctuation">[</span></pre></td></tr><tr><td data-num="30"></td><td><pre>        <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="31"></td><td><pre>         <span class="token literal-property property">code</span><span class="token operator">:</span> <span class="token string">'1'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="32"></td><td><pre>         <span class="token literal-property property">lng</span><span class="token operator">:</span> <span class="token string">'112.9479'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="33"></td><td><pre>         <span class="token literal-property property">lat</span><span class="token operator">:</span> <span class="token string">'28.2230'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="34"></td><td><pre>         <span class="token literal-property property">show</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="35"></td><td><pre>         <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="36"></td><td><pre>      <span class="token punctuation">]</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="37"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="38"></td><td><pre>  <span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h1 id="注意"><a class="markdownIt-Anchor" href="#注意">#</a> 注意</h1>
+<p><span class="label warning">将腾讯高德地图的经纬度转换成百度地图能使用的经纬度</span></p>
+<figure class="highlight js"><figcaption data-lang="JavaScript"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token function">qqMapTransBMap</span> <span class="token punctuation">(</span><span class="token parameter">lng<span class="token punctuation">,</span> lat</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>  <span class="token keyword">let</span> x_pi <span class="token operator">=</span> <span class="token number">3.14159265358979324</span> <span class="token operator">*</span> <span class="token number">3000.0</span> <span class="token operator">/</span> <span class="token number">180.0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>  <span class="token keyword">let</span> x <span class="token operator">=</span> lng<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>  <span class="token keyword">let</span> y <span class="token operator">=</span> lat<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>  <span class="token keyword">let</span> z <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">sqrt</span><span class="token punctuation">(</span>x <span class="token operator">*</span> x <span class="token operator">+</span> y <span class="token operator">*</span> y<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">0.00002</span> <span class="token operator">*</span> Math<span class="token punctuation">.</span><span class="token function">sin</span><span class="token punctuation">(</span>y <span class="token operator">*</span> x_pi<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>  <span class="token keyword">let</span> theta <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">atan2</span><span class="token punctuation">(</span>y<span class="token punctuation">,</span> x<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">0.000003</span> <span class="token operator">*</span> Math<span class="token punctuation">.</span><span class="token function">cos</span><span class="token punctuation">(</span>x <span class="token operator">*</span> x_pi<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>  <span class="token keyword">let</span> lngs <span class="token operator">=</span> z <span class="token operator">*</span> Math<span class="token punctuation">.</span><span class="token function">cos</span><span class="token punctuation">(</span>theta<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">0.0065</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>  <span class="token keyword">let</span> lats <span class="token operator">=</span> z <span class="token operator">*</span> Math<span class="token punctuation">.</span><span class="token function">sin</span><span class="token punctuation">(</span>theta<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">0.006</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>  <span class="token keyword">return</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>    <span class="token literal-property property">lng</span><span class="token operator">:</span> lngs<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="11"></td><td><pre>    <span class="token literal-property property">lat</span><span class="token operator">:</span> lats</pre></td></tr><tr><td data-num="12"></td><td><pre>  <span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p><span class="label warning">将百度地图经纬度转换为腾讯 / 高德地图经纬度</span></p>
+<figure class="highlight js"><figcaption data-lang="JavaScript"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token function">bMapTransQQMap</span><span class="token punctuation">(</span><span class="token parameter">lng<span class="token punctuation">,</span> lat</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>      <span class="token keyword">let</span> x_pi <span class="token operator">=</span> <span class="token number">3.14159265358979324</span> <span class="token operator">*</span> <span class="token number">3000.0</span> <span class="token operator">/</span> <span class="token number">180.0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>      <span class="token keyword">let</span> x <span class="token operator">=</span> lng <span class="token operator">-</span> <span class="token number">0.0065</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>      <span class="token keyword">let</span> y <span class="token operator">=</span> lat <span class="token operator">-</span> <span class="token number">0.006</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>      <span class="token keyword">let</span> z <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">sqrt</span><span class="token punctuation">(</span>x <span class="token operator">*</span> x <span class="token operator">+</span> y <span class="token operator">*</span> y<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">0.00002</span> <span class="token operator">*</span> Math<span class="token punctuation">.</span><span class="token function">sin</span><span class="token punctuation">(</span>y <span class="token operator">*</span> x_pi<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>      <span class="token keyword">let</span> theta <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">atan2</span><span class="token punctuation">(</span>y<span class="token punctuation">,</span> x<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">0.000003</span> <span class="token operator">*</span> Math<span class="token punctuation">.</span><span class="token function">cos</span><span class="token punctuation">(</span>x <span class="token operator">*</span> x_pi<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>      <span class="token keyword">let</span> lngs <span class="token operator">=</span> z <span class="token operator">*</span> Math<span class="token punctuation">.</span><span class="token function">cos</span><span class="token punctuation">(</span>theta<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>      <span class="token keyword">let</span> lats <span class="token operator">=</span> z <span class="token operator">*</span> Math<span class="token punctuation">.</span><span class="token function">sin</span><span class="token punctuation">(</span>theta<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>      <span class="token keyword">return</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>          <span class="token literal-property property">lng</span><span class="token operator">:</span> lngs<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="11"></td><td><pre>          <span class="token literal-property property">lat</span><span class="token operator">:</span> lats        </pre></td></tr><tr><td data-num="12"></td><td><pre>      <span class="token punctuation">&#125;</span>   </pre></td></tr><tr><td data-num="13"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p><ins class="dot">不然会导致位置出现偏差 因为他们 不是一套坐标体系</ins></p>
+
+      <div class="tags">
+          <a href="/tags/Vue-Baidu-Map/" rel="tag"><i class="ic i-tag"></i> Vue Baidu Map</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-04-06 17:11:25" itemprop="dateModified" datetime="2022-04-06T17:11:25+08:00">2022-04-06</time>
+  </span>
+  <span id="2022/03/28/computer-science/web/BaiduMap/" class="item leancloud_visitors" data-flag-title="Vue Baidu Map 百度地图的使用" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Zombies <i class="ic i-at"><em>@</em></i>
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="http://xchao.work/2022/03/28/computer-science/web/BaiduMap/" title="Vue Baidu Map 百度地图的使用">http://xchao.work/2022/03/28/computer-science/web/BaiduMap/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2022/03/26/computer-science3/music/singer/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giph4baakhj20zk0m8h5q.jpg" title="音乐">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 音乐</span>
+  <h3>音乐</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2022/03/29/computer-science/web/Video/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicitcxhpij20zk0m8hdt.jpg" title="直播Video播放器使用记录">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> web</span>
+  <h3>直播Video播放器使用记录</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BE%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text"> 百度地图的使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F"><span class="toc-number">2.</span> <span class="toc-text"> 注意</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li class="active"><a href="/2022/03/28/computer-science/web/BaiduMap/" rel="bookmark" title="Vue Baidu Map 百度地图的使用">Vue Baidu Map 百度地图的使用</a></li><li><a href="/2022/03/29/computer-science/web/Video/" rel="bookmark" title="直播Video播放器使用记录">直播Video播放器使用记录</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Zombies"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">Zombies</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">5</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">7</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">4</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL1dlYi1ab21iaWVz" title="https:&#x2F;&#x2F;github.com&#x2F;Web-Zombies"><i class="ic i-github"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS90YW5nLWRvdS1kb3UtNDAtNTk=" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;tang-dou-dou-40-59"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLz9mcm9tPWl0YWIjL3BsYXlsaXN0P2lkPTg4MTczODAyMA==" title="https:&#x2F;&#x2F;music.163.com&#x2F;?from&#x3D;itab#&#x2F;playlist?id&#x3D;881738020"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item about" data-url="aHR0cHM6Ly9hYm91dC5tZS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;about.me&#x2F;yourname"><i class="ic i-address-card"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>链接</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/friends/" rel="section"><i class="ic i-heart"></i>友達</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/link/" rel="section"><i class="ic i-star"></i>网址</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2022/03/26/computer-science3/music/singer/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2022/03/29/computer-science/web/Video/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 前端">前端</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/web/" title="分类于 web">web</a>
+</div>
+
+    <span><a href="/2022/03/29/computer-science/web/Video/" title="直播Video播放器使用记录">直播Video播放器使用记录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 前端">前端</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/echarts/" title="分类于 Echarts">Echarts</a>
+</div>
+
+    <span><a href="/2022/04/06/computer-science/echarts/echarts%E7%BB%93%E5%90%88%E9%AB%98%E5%BE%B7API%E8%BF%9B%E8%A1%8C%E5%9C%B0%E5%9B%BE%E4%B8%8B%E9%92%BB/" title="Echarts结合高德API进行中国地图下钻">Echarts结合高德API进行中国地图下钻</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 前端">前端</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/web/" title="分类于 web">web</a>
+</div>
+
+    <span><a href="/2022/03/28/computer-science/web/BaiduMap/" title="Vue Baidu Map 百度地图的使用">Vue Baidu Map 百度地图的使用</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science2/" title="分类于 后端">后端</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science2/node/" title="分类于 Node">Node</a>
+</div>
+
+    <span><a href="/2022/03/31/computer-science2/node/Day1/" title="Node内置模块、模块化、npm包发布">Node内置模块、模块化、npm包发布</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science3/" title="分类于 其他">其他</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science3/music/" title="分类于 音乐">音乐</a>
+</div>
+
+    <span><a href="/2022/03/26/computer-science3/music/singer/" title="音乐">音乐</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Zombies @ Palpitate</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">15k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">14 分钟</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2022/03/28/computer-science/web/BaiduMap/',
+    favicon: {
+      show: "🎐~",
+      hide: "我消失啦~"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

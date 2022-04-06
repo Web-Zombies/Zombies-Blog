@@ -1,0 +1,661 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="" href="http://xchao.work/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="" href="http://xchao.work/atom.xml" />
+<link rel="alternate" type="application/json" title="" href="http://xchao.work/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="Node.js" />
+
+
+<link rel="canonical" href="http://xchao.work/2022/03/31/computer-science2/node/Day1/">
+
+
+
+  <title>
+Node内置模块、模块化、npm包发布 - Node - 后端 |
+Palpitate</title> 
+<meta name="generator" content="Hexo 5.4.1"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Node内置模块、模块化、npm包发布
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2022-03-31 10:30:54">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2022-03-31T10:30:54+08:00">2022-03-31</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>5.2k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>5 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Palpitate</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclflwv2aj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciryrr3rj20zk0m8nhk.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipexbei4hj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclh0m9pdj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicis081o9j20zk0m8dmr.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science2/" itemprop="item" rel="index" title="分类于 后端"><span itemprop="name">后端</span></a>
+<meta itemprop="position" content="1" /></span>
+<i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science2/node/" itemprop="item" rel="index" title="分类于 Node"><span itemprop="name">Node</span></a>
+<meta itemprop="position" content="2" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="http://xchao.work/2022/03/31/computer-science2/node/Day1/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="Zombies">
+    <meta itemprop="description" content="如果感到压力大的话  就听首自己喜欢的歌吧, ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="nodejs"><a class="markdownIt-Anchor" href="#nodejs">#</a> Node.js</h1>
+<p>node 中文网 <span class="exturl" data-url="aHR0cDovL25vZGVqcy5jbi8=">http://nodejs.cn/</span></p>
+<h2 id="推荐安装以及常用命令"><a class="markdownIt-Anchor" href="#推荐安装以及常用命令">#</a> 推荐安装以及常用命令</h2>
+<div class="note info">
+<p>node 版本管理 NVM <span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vZHJlYW1zcWluL3AvMTA4ODUwODIuaHRtbA==">下载与安装 </span><br>
+nvm ls  查看目前已经安装的版本<br>
+ nvm install 10.5.0 安装指定 node 版本<br>
+ nvm use 16.13.1 切换 node 版本</p>
+</div>
+<div class="note info">
+<p>npm  镜像管理 NRM <span class="exturl" data-url="aHR0cHM6Ly93d3cuamlhbnNodS5jb20vcC85NGQwODRjZTY4MzQ=">下载与安装  </span><br>
+nrm ls  查看可选的源<br>
+ nrm use taobao 切换 taobao 源<br>
+ nrm del <registry> 删除对应的源<br>
+ nrm test npm 测试相应源的响应时间</p>
+</div>
+<h2 id="终端中的快捷键"><a class="markdownIt-Anchor" href="#终端中的快捷键">#</a> 终端中的快捷键</h2>
+<ul>
+<li>使用 ↑ 键，可以快速定位到上一次执行的命令</li>
+<li>使用 tab 键，能够快速补全路径</li>
+<li>使用 esc 键，能够快速清空当前已输入的命令</li>
+<li>输入 cls 命令，可以清空终端</li>
+</ul>
+<h1 id="内置模块"><a class="markdownIt-Anchor" href="#内置模块">#</a> 内置模块</h1>
+<h2 id="fs-文件系统模块"><a class="markdownIt-Anchor" href="#fs-文件系统模块">#</a> fs 文件系统模块</h2>
+<p><span class="label info">fs.readFile () 方法</span> <span class="grey">用来读取指定文件中的内容</span></p>
+<figure class="highlight js"><figcaption data-lang="JavaScript"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment">// 1. 导入 fs 模块，来操作文件</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token comment">// 2. 调用 fs.readFile () 方法读取文件</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token comment">//    参数 1：读取文件的存放路径</span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token comment">//    参数 2：读取文件时候采用的编码格式，一般默认指定 utf8</span></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token comment">//    参数 3：回调函数，拿到读取失败和成功的结果  err  dataStr</span></pre></td></tr><tr><td data-num="7"></td><td><pre>fs<span class="token punctuation">.</span><span class="token function">readFile</span><span class="token punctuation">(</span><span class="token string">'./files/cs.txt'</span><span class="token punctuation">,</span> <span class="token string">'utf8'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> dataStr</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>  <span class="token comment">// 2.1 打印失败的结果</span></pre></td></tr><tr><td data-num="9"></td><td><pre>  <span class="token comment">// 如果读取成功，则 err 的值为 null</span></pre></td></tr><tr><td data-num="10"></td><td><pre>  <span class="token comment">// 如果读取失败，则 err 的值为 错误对象，dataStr 的值为 undefined</span></pre></td></tr><tr><td data-num="11"></td><td><pre>  <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>    <span class="token keyword">return</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'读取文件失败！'</span> <span class="token operator">+</span> err<span class="token punctuation">.</span>message<span class="token punctuation">)</span></pre></td></tr><tr><td data-num="13"></td><td><pre>  <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="14"></td><td><pre>  <span class="token comment">// 2.2 打印成功的结果</span></pre></td></tr><tr><td data-num="15"></td><td><pre>  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'读取文件成功！'</span> <span class="token operator">+</span> dataStr<span class="token punctuation">)</span></pre></td></tr><tr><td data-num="16"></td><td><pre><span class="token punctuation">&#125;</span><span class="token punctuation">)</span></pre></td></tr></table></figure><p><span class="label info">fs.writeFile () 方法</span> <span class="grey">用来向指定的文件中写入内容</span></p>
+<figure class="highlight js"><figcaption data-lang="JavaScript"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment">// 1. 导入 fs 文件系统模块</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token comment">// 2. 调用 fs.writeFile () 方法，写入文件的内容</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token comment">//    参数 1：表示文件的存放路径</span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token comment">//    参数 2：表示要写入的内容</span></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token comment">//    参数 3：回调函数</span></pre></td></tr><tr><td data-num="7"></td><td><pre>fs<span class="token punctuation">.</span><span class="token function">writeFile</span><span class="token punctuation">(</span><span class="token string">'./files/3.txt'</span><span class="token punctuation">,</span> <span class="token string">'ok123'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>  <span class="token comment">// 2.1 如果文件写入成功，则 err 的值等于 null</span></pre></td></tr><tr><td data-num="9"></td><td><pre>  <span class="token comment">// 2.2 如果文件写入失败，则 err 的值等于一个 错误对象</span></pre></td></tr><tr><td data-num="10"></td><td><pre>  <span class="token comment">// console.log(err)</span></pre></td></tr><tr><td data-num="11"></td><td><pre></pre></td></tr><tr><td data-num="12"></td><td><pre>  <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>    <span class="token keyword">return</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'文件写入失败！'</span> <span class="token operator">+</span> err<span class="token punctuation">.</span>message<span class="token punctuation">)</span></pre></td></tr><tr><td data-num="14"></td><td><pre>  <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="15"></td><td><pre>  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'文件写入成功！'</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="16"></td><td><pre><span class="token punctuation">&#125;</span><span class="token punctuation">)</span></pre></td></tr></table></figure><h2 id="path-路径模块"><a class="markdownIt-Anchor" href="#path-路径模块">#</a> path 路径模块</h2>
+<p><span class="label info">path.join () 方法</span> <span class="grey">用来将多个路径片段拼接成一个完整的路径字符串</span></p>
+<figure class="highlight js"><figcaption data-lang="JavaScript"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token comment">//__dirname 表示当前文件所处的目录</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token comment">// console.log(__dirname)</span></pre></td></tr><tr><td data-num="5"></td><td><pre></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token comment">// 注意：  ../ 会抵消前面的路径</span></pre></td></tr><tr><td data-num="7"></td><td><pre><span class="token comment">// const pathStr = path.join('/a', '/b/c', '../../', './d', 'e')</span></pre></td></tr><tr><td data-num="8"></td><td><pre><span class="token comment">// console.log(pathStr)  // \a\b\d\e</span></pre></td></tr><tr><td data-num="9"></td><td><pre></pre></td></tr><tr><td data-num="10"></td><td><pre><span class="token comment">// fs.readFile(__dirname + '/files/1.txt')</span></pre></td></tr><tr><td data-num="11"></td><td><pre></pre></td></tr><tr><td data-num="12"></td><td><pre>fs<span class="token punctuation">.</span><span class="token function">readFile</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'./files/cs.txt'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'utf8'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> dataStr</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>  <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="14"></td><td><pre>    <span class="token keyword">return</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>err<span class="token punctuation">.</span>message<span class="token punctuation">)</span></pre></td></tr><tr><td data-num="15"></td><td><pre>  <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="16"></td><td><pre>  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>dataStr<span class="token punctuation">)</span></pre></td></tr><tr><td data-num="17"></td><td><pre><span class="token punctuation">&#125;</span><span class="token punctuation">)</span></pre></td></tr></table></figure><p><span class="label info">path.basename () 方法</span> <span class="grey">用来从路径字符串中，将文件名解析出来</span></p>
+<figure class="highlight js"><figcaption data-lang="JavaScript"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="2"></td><td><pre></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token comment">// 定义文件的存放路径</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token keyword">const</span> fpath <span class="token operator">=</span> <span class="token string">'/a/b/c/index.html'</span></pre></td></tr><tr><td data-num="5"></td><td><pre></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token comment">// const fullName = path.basename(fpath)</span></pre></td></tr><tr><td data-num="7"></td><td><pre><span class="token comment">// console.log(fullName)</span></pre></td></tr><tr><td data-num="8"></td><td><pre><span class="token comment">// 返回: 'index.html'</span></pre></td></tr><tr><td data-num="9"></td><td><pre></pre></td></tr><tr><td data-num="10"></td><td><pre><span class="token keyword">const</span> nameWithoutExt <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">basename</span><span class="token punctuation">(</span>fpath<span class="token punctuation">,</span> <span class="token string">'.html'</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="11"></td><td><pre>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>nameWithoutExt<span class="token punctuation">)</span></pre></td></tr><tr><td data-num="12"></td><td><pre><span class="token comment">// 返回: 'index'</span></pre></td></tr></table></figure><p><span class="label info">path.extname () 方法</span> <span class="grey">获取路径中的文件扩展名</span></p>
+<figure class="highlight js"><figcaption data-lang="JavaScript"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="2"></td><td><pre></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token comment">// 这是文件的存放路径</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token keyword">const</span> fpath <span class="token operator">=</span> <span class="token string">'/a/b/c/index.html'</span></pre></td></tr><tr><td data-num="5"></td><td><pre></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token keyword">const</span> fext <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">extname</span><span class="token punctuation">(</span>fpath<span class="token punctuation">)</span></pre></td></tr><tr><td data-num="7"></td><td><pre>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>fext<span class="token punctuation">)</span></pre></td></tr><tr><td data-num="8"></td><td><pre><span class="token comment">// 返回: '.html'</span></pre></td></tr></table></figure><h2 id="http-模块"><a class="markdownIt-Anchor" href="#http-模块">#</a> http 模块</h2>
+<p><span class="label info">http.createServer () 方法</span><br>
+<span class="grey">创建 web 服务器的基本步骤</span></p>
+<ol>
+<li>导入 http 模块</li>
+<li>创建 web 服务器实例</li>
+<li>为服务器实例绑定 request 事件，监听客户端的请求</li>
+<li>启动服务器</li>
+</ol>
+<figure class="highlight js"><figcaption data-lang="JavaScript"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment">// 1. 导入 http 模块</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token keyword">const</span> http <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'http'</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token comment">// 2. 创建 web 服务器实例</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token keyword">const</span> server <span class="token operator">=</span> http<span class="token punctuation">.</span><span class="token function">createServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token comment">// 3. 为服务器实例绑定 request 事件，监听客户端的请求</span></pre></td></tr><tr><td data-num="6"></td><td><pre>server<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'request'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>  <span class="token comment">//req.url 是客户端请求的 URL 地址</span></pre></td></tr><tr><td data-num="8"></td><td><pre>  <span class="token keyword">const</span> url <span class="token operator">=</span> req<span class="token punctuation">.</span>url</pre></td></tr><tr><td data-num="9"></td><td><pre>  <span class="token comment">//req.method 是客户端请求的 method 类型</span></pre></td></tr><tr><td data-num="10"></td><td><pre>  <span class="token keyword">const</span> method <span class="token operator">=</span> req<span class="token punctuation">.</span>method</pre></td></tr><tr><td data-num="11"></td><td><pre>  <span class="token comment">// 定义一个字符串，包含中文的内容</span></pre></td></tr><tr><td data-num="12"></td><td><pre>  <span class="token keyword">const</span> str <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">您请求的 URL 地址是 </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>url<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">，请求的 method 类型为 </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>method<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span></pre></td></tr><tr><td data-num="13"></td><td><pre>  <span class="token comment">// 调用 res.setHeader () 方法，设置 Content-Type 响应头，解决中文乱码的问题</span></pre></td></tr><tr><td data-num="14"></td><td><pre>  res<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">'Content-Type'</span><span class="token punctuation">,</span> <span class="token string">'text/html; charset=utf-8'</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="15"></td><td><pre>  <span class="token comment">//res.end () 将内容响应给客户端</span></pre></td></tr><tr><td data-num="16"></td><td><pre>  res<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span></pre></td></tr><tr><td data-num="17"></td><td><pre><span class="token punctuation">&#125;</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="18"></td><td><pre><span class="token comment">// 4. 启动服务器</span></pre></td></tr><tr><td data-num="19"></td><td><pre>server<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">8080</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>  </pre></td></tr><tr><td data-num="20"></td><td><pre>  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'server running at http://127.0.0.1:8080'</span><span class="token punctuation">)</span></pre></td></tr><tr><td data-num="21"></td><td><pre><span class="token punctuation">&#125;</span><span class="token punctuation">)</span></pre></td></tr></table></figure><h1 id="模块化的基本概念"><a class="markdownIt-Anchor" href="#模块化的基本概念">#</a> 模块化的基本概念</h1>
+<p><span class="grey">把代码进行模块化拆分的好处</span></p>
+<ol>
+<li>
+<p>提高了代码的复用性</p>
+</li>
+<li>
+<p>提高了代码的可维护性</p>
+</li>
+<li>
+<p>可以实现按需加载</p>
+</li>
+</ol>
+<p><span class="grey">Node.js 中根据模块来源的不同，将模块分为了 3 大类，分别是</span></p>
+<ul>
+<li>内置模块（内置模块是由 Node.js 官方提供的，例如 fs、path、http 等）</li>
+<li>自定义模块（用户创建的每个 .js 文件，都是自定义模块）</li>
+<li>第三方模块（由第三方开发出来的模块，并非官方提供的内置模块，也不是用户创建的自定义模块，使用前需要先下载）</li>
+</ul>
+<p><ins>使用强大的 require () 方法，可以加载需要的内置模块、用户自定义模块、第三方模块进行使用</ins><br>
+<span class="label danger">注意</span> 使用 require () 方法加载其它模块时，会执行被加载模块中的代码。</p>
+<h2 id="模块的加载机制"><a class="markdownIt-Anchor" href="#模块的加载机制">#</a> 模块的加载机制</h2>
+<p><ins>模块在第一次加载后会被缓存。</ins></p>
+<p>这也意味着多次调用 require () 不会导致模块的代码被执行多次。 注意：不论是内置模块、用户自定义模块、还是第三方模块，它们都会优先从缓存中加载，从而提高模块的加载效率。</p>
+<p><ins>内置模块的加载优先级最高。</ins></p>
+<p>自定义模块的加载机制</p>
+<p>使用 require () 加载自定义模块时，必须指定以 ./ 或 …/ 开头的路径标识符。在加载自定义模块时，如果没有指定 ./ 或 …/  这样的路径标识符，则 node 会把它当作内置模块或第三方模块进行加载。</p>
+<p><span class="grey">同时，在使用 require () 导入自定义模块时，如果省略了文件的扩展名，则 Node.js 会按顺序分别尝试加载以下的文件</span></p>
+<ol>
+<li>按照确切的文件名进行加载</li>
+<li>补全 .js 扩展名进行加载</li>
+<li>补全 .json 扩展名进行加载</li>
+<li>补全 .node 扩展名进行加载</li>
+<li>加载失败，终端报错</li>
+</ol>
+<p>第三方模块的加载机制</p>
+<p>如果传递给 require () 的模块标识符不是一个内置模块，也没有以 ‘./’ 或 ‘…/’ 开头，则 Node.js 会从当前模块的父 目录开始，尝试从 /node_modules 文件夹中加载第三方模块。</p>
+<p>如果没有找到对应的第三方模块，则移动到再上一层父目录中，进行加载，直到文件系统的根目录。</p>
+<p><span class="grey">例如，假设在’C:\Users\itheima\project\foo.js’文件里调用了 require (‘tools’)，则 Node.js 会按以下顺序查找</span></p>
+<ol>
+<li>C:\Users\itheima\project\node_modules\tools</li>
+<li>C:\Users\itheima\node_modules\tools</li>
+<li>C:\Users\node_modules\tools</li>
+<li>C:\node_modules\tools</li>
+</ol>
+<h2 id="模块作用域"><a class="markdownIt-Anchor" href="#模块作用域">#</a> 模块作用域</h2>
+<p><ins>和函数作用域类似，在自定义模块中定义的变量、方法等成员，只能在当前模块内被访问，这种模块级别的访问限制，叫做模块作用域。</ins></p>
+<p><ins>模块作用域的好处 防止了全局变量污染的问题</ins></p>
+<h3 id="向外共享模块作用域中的成员"><a class="markdownIt-Anchor" href="#向外共享模块作用域中的成员">#</a> 向外共享模块作用域中的成员</h3>
+<p><span class="label info">module.exports 对象</span></p>
+<p>将模块内的成员共享出去，供外界使用。 外界用 require () 方法导入自定义模块时，得到的就是 module.exports 所指向的对象。</p>
+<p><span class="label danger">注意</span> 使用 require () 方法导入模块时，导入的结果，永远以 module.exports 指向的对象为准</p>
+<p><span class="label info">exports 对象</span></p>
+<p>由于 module.exports 单词写起来比较复杂，为了简化向外共享成员的代码，Node 提供了 exports 对象。默认情况 下，exports 和 module.exports 指向同一个对象。最终共享的结果，还是以 <ins>module.exports 指向的对象为准</ins></p>
+<p><span class="label danger">注意</span></p>
+<p>时刻谨记，require () 模块时，<ins>得到的永远是 module.exports 指向的对象</ins>：</p>
+<p>为了防止混乱，<ins>建议大家不要</ins>在同一个模块中同时使用 exports 和 module.exports</p>
+<h1 id="npm与包"><a class="markdownIt-Anchor" href="#npm与包">#</a> npm 与包</h1>
+<figure class="highlight js"><figcaption data-lang="JavaScript"></figcaption><table><tr><td data-num="1"></td><td><pre>npm install <span class="token comment">// 包的完整名称 通过 </span></pre></td></tr><tr><td data-num="2"></td><td><pre>npm install moment@<span class="token number">2.22</span><span class="token number">.2</span>  <span class="token comment">//@ 符号指定具体的版本</span></pre></td></tr><tr><td data-num="3"></td><td><pre>npm uninstall moment <span class="token comment">// 卸载指定的包</span></pre></td></tr><tr><td data-num="4"></td><td><pre>npm install <span class="token comment">// 一次性安装所有的依赖包</span></pre></td></tr><tr><td data-num="5"></td><td><pre></pre></td></tr><tr><td data-num="6"></td><td><pre>npm i 包名 <span class="token operator">-</span>g  <span class="token comment">//-g 全局安装</span></pre></td></tr></table></figure><p>初次装包完成后，在项目文件夹下多一个叫做 <ins>node_modules</ins> 的文件夹和 <ins>package-lock.json</ins> 的配置文件。</p>
+<p><span class="label danger">其中</span></p>
+<p>node_modules 文件夹用来存放所有已安装到项目中的包。require () 导入第三方包时，就是从这个目录中查找并加载包。</p>
+<p>package-lock.json 配置文件用来记录 node_modules 目录下的每一个包的下载信息，例如包的名字、版本号、下载地址等。</p>
+<h2 id="包的语义化版本规范与配置文件"><a class="markdownIt-Anchor" href="#包的语义化版本规范与配置文件">#</a> 包的语义化版本规范与配置文件</h2>
+<p><span class="grey">包的版本号是以 “点分十进制” 形式进行定义的，总共有三位数字，例如 2.24.0 其中每一位数字所代表的的含义如下</span></p>
+<ul>
+<li>第 1 位数字：大版本</li>
+<li>第 2 位数字：功能版本</li>
+<li>第 3 位数字：Bug 修复版本</li>
+</ul>
+<p>版本号提升的<ins>规则</ins>：只要前面的版本号增长了，则后面的版本号归零。</p>
+<p>在项目根目录中，创建一个叫做 package.json 的配置文件，即可用来记录项目中安装了哪些包。从而方便剔除 node_modules 目录之后，在团队成员之间共享项目的源代码。</p>
+<p>注意：今后在项目开发中，一定要把 node_modules 文件夹，添加到 <ins>.gitignore</ins> 忽略文件中</p>
+<figure class="highlight js"><figcaption data-lang="JavaScript"></figcaption><table><tr><td data-num="1"></td><td><pre>npm init <span class="token operator">-</span>y <span class="token comment">// 快速创建 package.json 这个包管理配置文件</span></pre></td></tr></table></figure><p>运行 npm install 命令安装包的时候，npm 包管理工具会自动把包的名称和版本号，记录到 package.json 中</p>
+<h2 id="规范的包结构与开发属于自己的包"><a class="markdownIt-Anchor" href="#规范的包结构与开发属于自己的包">#</a> 规范的包结构与开发属于自己的包</h2>
+<p><span class="grey">一个规范的包，它的组成结构，必须符合以下 3 点要求</span></p>
+<ol>
+<li>包必须以单独的目录而存在</li>
+<li>包的顶级目录下要必须包含 package.json 这个包管理配置文件</li>
+<li>package.json 中必须包含 name，version，main 这三个属性，分别代表包的名字、版本号、包的入口。</li>
+</ol>
+<p><span class="grey">初始化包的基本结构</span></p>
+<ol>
+<li>新建 itheima-tools 文件夹，作为包的根目录</li>
+<li>在 itheima-tools 文件夹中，新建如下三个文件：</li>
+</ol>
+<ul>
+<li>package.json （包管理配置文件）</li>
+<li>index.js （包的入口文件）</li>
+<li><span class="exturl" data-url="aHR0cDovL1JFQURNRS5tZA==">README.md</span> （包的说明文档）</li>
+</ul>
+<ol start="3">
+<li>初始化 package.json</li>
+</ol>
+<figure class="highlight json"><figcaption data-lang="JSON"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"code"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="3"></td><td><pre>  <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"1.0.0"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="4"></td><td><pre>  <span class="token property">"main"</span><span class="token operator">:</span> <span class="token string">"index.js"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="5"></td><td><pre>  <span class="token property">"license"</span><span class="token operator">:</span> <span class="token string">"ISC"</span><span class="token punctuation">,</span> </pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><ol start="4">
+<li>index.js 中定义方法</li>
+<li>补充 README.md 说明文档</li>
+</ol>
+<h3 id="发布包"><a class="markdownIt-Anchor" href="#发布包">#</a> 发布包</h3>
+<ol>
+<li>访问 <span class="exturl" data-url="aHR0cHM6Ly93d3cubnBtanMuY29tLw==">https://www.npmjs.com/</span> 网站</li>
+<li>可以在终端中执行 npm login 命令依次输入用户名、密码、邮箱后，即可登录成功。</li>
+<li>将终端切换到包的根目录之后，运行 npm publish 命令，即可将包发布到 npm 上（注意：包名不能雷同）。</li>
+<li>运行 npm unpublish 包名 --force 命令，即可从 npm 删除已发布的包。</li>
+</ol>
+
+      <div class="tags">
+          <a href="/tags/Node-js/" rel="tag"><i class="ic i-tag"></i> Node.js</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-03-31 10:54:39" itemprop="dateModified" datetime="2022-03-31T10:54:39+08:00">2022-03-31</time>
+  </span>
+  <span id="2022/03/31/computer-science2/node/Day1/" class="item leancloud_visitors" data-flag-title="Node内置模块、模块化、npm包发布" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Zombies <i class="ic i-at"><em>@</em></i>
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="http://xchao.work/2022/03/31/computer-science2/node/Day1/" title="Node内置模块、模块化、npm包发布">http://xchao.work/2022/03/31/computer-science2/node/Day1/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2022/03/29/computer-science/web/Video/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclh3brzpj20zk0m8ann.jpg" title="直播Video播放器使用记录">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> web</span>
+  <h3>直播Video播放器使用记录</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2022/04/06/computer-science/echarts/echarts%E7%BB%93%E5%90%88%E9%AB%98%E5%BE%B7API%E8%BF%9B%E8%A1%8C%E5%9C%B0%E5%9B%BE%E4%B8%8B%E9%92%BB/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicitcxhpij20zk0m8hdt.jpg" title="Echarts结合高德API进行中国地图下钻">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> Echarts</span>
+  <h3>Echarts结合高德API进行中国地图下钻</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#nodejs"><span class="toc-number">1.</span> <span class="toc-text"> Node.js</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.1.</span> <span class="toc-text"> 推荐安装以及常用命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%88%E7%AB%AF%E4%B8%AD%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-number">1.2.</span> <span class="toc-text"> 终端中的快捷键</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97"><span class="toc-number">2.</span> <span class="toc-text"> 内置模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#fs-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%A8%A1%E5%9D%97"><span class="toc-number">2.1.</span> <span class="toc-text"> fs 文件系统模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#path-%E8%B7%AF%E5%BE%84%E6%A8%A1%E5%9D%97"><span class="toc-number">2.2.</span> <span class="toc-text"> path 路径模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#http-%E6%A8%A1%E5%9D%97"><span class="toc-number">2.3.</span> <span class="toc-text"> http 模块</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">3.</span> <span class="toc-text"> 模块化的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E7%9A%84%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6"><span class="toc-number">3.1.</span> <span class="toc-text"> 模块的加载机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">3.2.</span> <span class="toc-text"> 模块作用域</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%91%E5%A4%96%E5%85%B1%E4%BA%AB%E6%A8%A1%E5%9D%97%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%AD%E7%9A%84%E6%88%90%E5%91%98"><span class="toc-number">3.2.1.</span> <span class="toc-text"> 向外共享模块作用域中的成员</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#npm%E4%B8%8E%E5%8C%85"><span class="toc-number">4.</span> <span class="toc-text"> npm 与包</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%85%E7%9A%84%E8%AF%AD%E4%B9%89%E5%8C%96%E7%89%88%E6%9C%AC%E8%A7%84%E8%8C%83%E4%B8%8E%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">4.1.</span> <span class="toc-text"> 包的语义化版本规范与配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%84%E8%8C%83%E7%9A%84%E5%8C%85%E7%BB%93%E6%9E%84%E4%B8%8E%E5%BC%80%E5%8F%91%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8C%85"><span class="toc-number">4.2.</span> <span class="toc-text"> 规范的包结构与开发属于自己的包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E5%8C%85"><span class="toc-number">4.2.1.</span> <span class="toc-text"> 发布包</span></a></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li class="active"><a href="/2022/03/31/computer-science2/node/Day1/" rel="bookmark" title="Node内置模块、模块化、npm包发布">Node内置模块、模块化、npm包发布</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Zombies"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">Zombies</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">5</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">7</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">4</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL1dlYi1ab21iaWVz" title="https:&#x2F;&#x2F;github.com&#x2F;Web-Zombies"><i class="ic i-github"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS90YW5nLWRvdS1kb3UtNDAtNTk=" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;tang-dou-dou-40-59"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLz9mcm9tPWl0YWIjL3BsYXlsaXN0P2lkPTg4MTczODAyMA==" title="https:&#x2F;&#x2F;music.163.com&#x2F;?from&#x3D;itab#&#x2F;playlist?id&#x3D;881738020"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item about" data-url="aHR0cHM6Ly9hYm91dC5tZS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;about.me&#x2F;yourname"><i class="ic i-address-card"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>链接</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/friends/" rel="section"><i class="ic i-heart"></i>友達</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/link/" rel="section"><i class="ic i-star"></i>网址</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2022/03/29/computer-science/web/Video/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2022/04/06/computer-science/echarts/echarts%E7%BB%93%E5%90%88%E9%AB%98%E5%BE%B7API%E8%BF%9B%E8%A1%8C%E5%9C%B0%E5%9B%BE%E4%B8%8B%E9%92%BB/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 前端">前端</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/echarts/" title="分类于 Echarts">Echarts</a>
+</div>
+
+    <span><a href="/2022/04/06/computer-science/echarts/echarts%E7%BB%93%E5%90%88%E9%AB%98%E5%BE%B7API%E8%BF%9B%E8%A1%8C%E5%9C%B0%E5%9B%BE%E4%B8%8B%E9%92%BB/" title="Echarts结合高德API进行中国地图下钻">Echarts结合高德API进行中国地图下钻</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 前端">前端</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/web/" title="分类于 web">web</a>
+</div>
+
+    <span><a href="/2022/03/28/computer-science/web/BaiduMap/" title="Vue Baidu Map 百度地图的使用">Vue Baidu Map 百度地图的使用</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science3/" title="分类于 其他">其他</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science3/music/" title="分类于 音乐">音乐</a>
+</div>
+
+    <span><a href="/2022/03/26/computer-science3/music/singer/" title="音乐">音乐</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 前端">前端</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/web/" title="分类于 web">web</a>
+</div>
+
+    <span><a href="/2022/03/29/computer-science/web/Video/" title="直播Video播放器使用记录">直播Video播放器使用记录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science2/" title="分类于 后端">后端</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science2/node/" title="分类于 Node">Node</a>
+</div>
+
+    <span><a href="/2022/03/31/computer-science2/node/Day1/" title="Node内置模块、模块化、npm包发布">Node内置模块、模块化、npm包发布</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Zombies @ Palpitate</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">15k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">14 分钟</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2022/03/31/computer-science2/node/Day1/',
+    favicon: {
+      show: "🎐~",
+      hide: "我消失啦~"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

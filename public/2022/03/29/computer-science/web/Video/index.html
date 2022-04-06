@@ -1,0 +1,571 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="" href="http://xchao.work/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="" href="http://xchao.work/atom.xml" />
+<link rel="alternate" type="application/json" title="" href="http://xchao.work/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="Vue-Video-Player,ezuikit-js,v-tcplayer" />
+
+
+<link rel="canonical" href="http://xchao.work/2022/03/29/computer-science/web/Video/">
+
+
+
+  <title>
+直播Video播放器使用记录 - web - 前端 |
+Palpitate</title> 
+<meta name="generator" content="Hexo 5.4.1"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">直播Video播放器使用记录
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2022-03-29 17:49:16">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2022-03-29T17:49:16+08:00">2022-03-29</time>
+  </span>
+  <span class="item" title="本文字数">
+    <span class="icon">
+      <i class="ic i-pen"></i>
+    </span>
+    <span class="text">本文字数</span>
+    <span>3.1k</span>
+    <span class="text">字</span>
+  </span>
+  <span class="item" title="阅读时长">
+    <span class="icon">
+      <i class="ic i-clock"></i>
+    </span>
+    <span class="text">阅读时长</span>
+    <span>3 分钟</span>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Palpitate</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclip4jbpj20zk0m87cv.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclimtf7dj20zk0m8qav.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giph4lm9i7j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicitspjpbj20zk0m81ky.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclxp31goj20zk0m8qv5.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/" itemprop="item" rel="index" title="分类于 前端"><span itemprop="name">前端</span></a>
+<meta itemprop="position" content="1" /></span>
+<i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/web/" itemprop="item" rel="index" title="分类于 web"><span itemprop="name">web</span></a>
+<meta itemprop="position" content="2" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="http://xchao.work/2022/03/29/computer-science/web/Video/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="Zombies">
+    <meta itemprop="description" content="如果感到压力大的话  就听首自己喜欢的歌吧, ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="vue-video-player播放器"><a class="markdownIt-Anchor" href="#vue-video-player播放器">#</a> Vue-Video-Player 播放器</h1>
+<p><span class="exturl" data-url="aHR0cDovL2dpdGh1Yi5zdXJtb24ubWUvdnVlLXZpZGVvLXBsYXllci8=">Vue-Video-Player</span> <span class="label success">适用于通用协议</span></p>
+<pre><code class="language-vue">&lt;video-player class=&quot;video-player vjs-custom-skin&quot; ref=&quot;videoPlayer&quot; :playsinline=&quot;true&quot; :options=&quot;playerOptions&quot;&gt;
+&lt;/video-player&gt;
+</code></pre>
+<p><span class="rainbow">使用简单 推荐 适用于多种业务场所 推荐使用</span></p>
+<figure class="highlight js"><figcaption data-lang="JavaScript"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> videoPlayer <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"vue-video-player"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token keyword">import</span> hls <span class="token keyword">from</span> <span class="token string">"videojs-contrib-hls"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token keyword">import</span> <span class="token string">"video.js/dist/video-js.css"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>  <span class="token literal-property property">components</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>    videoPlayer<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="7"></td><td><pre>    hls</pre></td></tr><tr><td data-num="8"></td><td><pre>  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="9"></td><td><pre>  <span class="token function">data</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>      <span class="token literal-property property">placeName</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="12"></td><td><pre>      <span class="token literal-property property">playerOptions</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>        <span class="token literal-property property">playbackRates</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment">// 可选的播放速度</span></pre></td></tr><tr><td data-num="14"></td><td><pre>        <span class="token literal-property property">autoplay</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 如果为 true, 浏览器准备好时开始回放。</span></pre></td></tr><tr><td data-num="15"></td><td><pre>        <span class="token literal-property property">muted</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 默认情况下将会消除任何音频。</span></pre></td></tr><tr><td data-num="16"></td><td><pre>        <span class="token literal-property property">loop</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token comment">// 是否视频一结束就重新开始。</span></pre></td></tr><tr><td data-num="17"></td><td><pre>        <span class="token literal-property property">preload</span><span class="token operator">:</span> <span class="token string">"auto"</span><span class="token punctuation">,</span> <span class="token comment">// 建议浏览器在 & lt;video > 加载元素后是否应该开始下载视频数据。auto 浏览器选择最佳行为，立即开始加载视频（如果浏览器支持）</span></pre></td></tr><tr><td data-num="18"></td><td><pre>        <span class="token literal-property property">language</span><span class="token operator">:</span> <span class="token string">"zh-CN"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="19"></td><td><pre>        <span class="token literal-property property">aspectRatio</span><span class="token operator">:</span> <span class="token string">"16:9"</span><span class="token punctuation">,</span> <span class="token comment">// 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例   如 "16:9" 或 "4:3"）</span></pre></td></tr><tr><td data-num="20"></td><td><pre>        <span class="token literal-property property">fluid</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 当 true 时，Video.js player 将拥有流体大小。换句话说，它将按比例缩放以适应其容器。</span></pre></td></tr><tr><td data-num="21"></td><td><pre>        <span class="token literal-property property">sources</span><span class="token operator">:</span> <span class="token punctuation">[</span></pre></td></tr><tr><td data-num="22"></td><td><pre>          <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="23"></td><td><pre>            <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">"application/x-mpegURL"</span><span class="token punctuation">,</span> <span class="token comment">// 类型</span></pre></td></tr><tr><td data-num="24"></td><td><pre>            <span class="token literal-property property">src</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token comment">//url 地址</span></pre></td></tr><tr><td data-num="25"></td><td><pre>          <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="26"></td><td><pre>        <span class="token punctuation">]</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="27"></td><td><pre>        <span class="token literal-property property">poster</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token comment">// 封面地址</span></pre></td></tr><tr><td data-num="28"></td><td><pre>        <span class="token literal-property property">hls</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 启用 hls？</span></pre></td></tr><tr><td data-num="29"></td><td><pre>        <span class="token literal-property property">notSupportedMessage</span><span class="token operator">:</span> <span class="token string">"此视频暂无法播放，请稍后再试"</span><span class="token punctuation">,</span> <span class="token comment">// 允许覆盖 Video.js 无法播放媒体源时显示的默认信息。</span></pre></td></tr><tr><td data-num="30"></td><td><pre>        <span class="token literal-property property">controlBar</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="31"></td><td><pre>          <span class="token literal-property property">timeDivider</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 当前时间和持续时间的分隔符</span></pre></td></tr><tr><td data-num="32"></td><td><pre>          <span class="token literal-property property">durationDisplay</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 显示持续时间</span></pre></td></tr><tr><td data-num="33"></td><td><pre>          <span class="token literal-property property">remainingTimeDisplay</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token comment">// 是否显示剩余时间功能</span></pre></td></tr><tr><td data-num="34"></td><td><pre>          <span class="token literal-property property">currentTimeDisplay</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 当前时间</span></pre></td></tr><tr><td data-num="35"></td><td><pre>          <span class="token literal-property property">volumeControl</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 声音控制键</span></pre></td></tr><tr><td data-num="36"></td><td><pre>          <span class="token literal-property property">progressControl</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token comment">// 进度条</span></pre></td></tr><tr><td data-num="37"></td><td><pre>          <span class="token literal-property property">playToggle</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 暂停 - 播放 按钮</span></pre></td></tr><tr><td data-num="38"></td><td><pre>          <span class="token literal-property property">fullscreenToggle</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 是否显示全屏按钮</span></pre></td></tr><tr><td data-num="39"></td><td><pre>        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="40"></td><td><pre>      <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="41"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="42"></td><td><pre>  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr></table></figure><h1 id="萤石云播放器"><a class="markdownIt-Anchor" href="#萤石云播放器">#</a> 萤石云播放器</h1>
+<p><span class="exturl" data-url="aHR0cDovL29wZW4ueXM3LmNvbS9kb2MvemgvdWlraXQvdWlraXRfamF2YXNjcmlwdC5odG1s">zuikit-js</span> <span class="label success">只适用萤石云专用协议</span></p>
+<pre><code class="language-vue">&lt;div id=&quot;video-container&quot; style=&quot;width:100%;height:100%;&quot; &gt;&lt;/div&gt;
+</code></pre>
+<p><span class="rainbow">安全性高 速度快 毕竟是自己的 官方提供的功能也挺全</span></p>
+<figure class="highlight js"><figcaption data-lang="JavaScript"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">import</span> EZUIKit <span class="token keyword">from</span> <span class="token string">'ezuikit-js'</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="3"></td><td><pre> <span class="token function">data</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>      <span class="token literal-property property">player</span><span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="6"></td><td><pre>      <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="8"></td><td><pre>   <span class="token function">mounted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>     <span class="token keyword">this</span><span class="token punctuation">.</span>player <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EZUIKit<span class="token punctuation">.</span>EZUIKitPlayer</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>           <span class="token literal-property property">autoplay</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="11"></td><td><pre>           <span class="token literal-property property">id</span><span class="token operator">:</span> <span class="token string">"video-container"</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="12"></td><td><pre>           <span class="token literal-property property">accessToken</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span> <span class="token comment">// 萤石云私有协议 accessToken</span></pre></td></tr><tr><td data-num="13"></td><td><pre>           <span class="token literal-property property">url</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="14"></td><td><pre>           <span class="token literal-property property">template</span><span class="token operator">:</span> <span class="token string">"standard"</span><span class="token punctuation">,</span> <span class="token comment">//simple - 极简版；standard - 标准版；security - 安防版 (预览回放);voice - 语音版；</span></pre></td></tr><tr><td data-num="15"></td><td><pre>           <span class="token comment">//footer: ["hd", 'fullScreen'], // 如果 template 参数不为 simple, 该字段将被覆盖</span></pre></td></tr><tr><td data-num="16"></td><td><pre>           <span class="token literal-property property">audio</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="17"></td><td><pre>      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="18"></td><td><pre>      <span class="token comment">/* 切换播放</pre></td></tr><tr><td data-num="19"></td><td><pre>         this.player.stop ()</pre></td></tr><tr><td data-num="20"></td><td><pre>           .then (() => &#123;</pre></td></tr><tr><td data-num="21"></td><td><pre>            this.player.play (res.data.records [0].connect);</pre></td></tr><tr><td data-num="22"></td><td><pre>           &#125;);</pre></td></tr><tr><td data-num="23"></td><td><pre>       */</span></pre></td></tr><tr><td data-num="24"></td><td><pre>   <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="25"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h1 id="腾讯云播放器"><a class="markdownIt-Anchor" href="#腾讯云播放器">#</a> 腾讯云播放器</h1>
+<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3ZvbndlYi92LXRjcGxheWVy">v-tcplayer</span> <span class="label success">适用于通用协议</span></p>
+<pre><code class="language-vue">&lt;VTcPlayer  ref=&quot;tcPlayer&quot; :options=&quot;audioOptions&quot; elmId=&quot;1&quot; @load=&quot;onLoad&quot; @play=&quot;onPlay&quot; @pause=&quot;onPause&quot; /&gt;
+</code></pre>
+<p><span class="rainbow">使用简单 做业务的时候对我来说体验感不是很好</span></p>
+<figure class="highlight js"><figcaption data-lang="JavaScript"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> VTcPlayer <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'v-tcplayer'</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>  <span class="token literal-property property">components</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    VTcPlayer<span class="token punctuation">,</span></pre></td></tr><tr><td data-num="5"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>     <span class="token function">data</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>      <span class="token comment">// 视频地址存放对象</span></pre></td></tr><tr><td data-num="9"></td><td><pre>      <span class="token literal-property property">audioOptions</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>        <span class="token comment">// 播放流</span></pre></td></tr><tr><td data-num="11"></td><td><pre>        <span class="token literal-property property">m3u8</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="12"></td><td><pre>        <span class="token comment">// 0.0.5 增加 </span></pre></td></tr><tr><td data-num="13"></td><td><pre>        <span class="token literal-property property">hlsUrl</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="14"></td><td><pre>        <span class="token comment">//// 播放器宽度</span></pre></td></tr><tr><td data-num="15"></td><td><pre>        <span class="token literal-property property">width</span><span class="token operator">:</span> <span class="token string">'100%'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="16"></td><td><pre>        <span class="token comment">//// 播放器高度</span></pre></td></tr><tr><td data-num="17"></td><td><pre>        <span class="token literal-property property">height</span><span class="token operator">:</span> <span class="token string">'250'</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="18"></td><td><pre>        <span class="token comment">//poster 支持传入一个对象，在对象中可以对封面的展现样式（style）和图片地址（src）进行设置。</span></pre></td></tr><tr><td data-num="19"></td><td><pre>        <span class="token comment">//style 支持的样式如下:</span></pre></td></tr><tr><td data-num="20"></td><td><pre>        <span class="token comment">// 	default: 居中并且以图片的实际分辨率进行显示。</span></pre></td></tr><tr><td data-num="21"></td><td><pre>        <span class="token comment">// 	stretch: 拉伸铺满播放器区域，图片可能会变形。</span></pre></td></tr><tr><td data-num="22"></td><td><pre>        <span class="token comment">// 	cover: 优先横向等比拉伸铺满播放器区域，图片某些部分可能无法显示在区域内。</span></pre></td></tr><tr><td data-num="23"></td><td><pre>        <span class="token comment">// poster: &#123;</span></pre></td></tr><tr><td data-num="24"></td><td><pre>        <span class="token comment">//   "style": "stretch",</span></pre></td></tr><tr><td data-num="25"></td><td><pre>        <span class="token comment">//   "src": "https://img1.baidu.com/it/u=1576882006,3058438369&amp;fm=26&amp;fmt=auto&amp;gp=0.jpg"</span></pre></td></tr><tr><td data-num="26"></td><td><pre>        <span class="token comment">// &#125;,</span></pre></td></tr><tr><td data-num="27"></td><td><pre>        <span class="token comment">// 是否自动播放</span></pre></td></tr><tr><td data-num="28"></td><td><pre>        <span class="token comment">//iOS 下 safari 浏览器，以及大部分移动端浏览器是不开放视频自动播放这个能力的</span></pre></td></tr><tr><td data-num="29"></td><td><pre>        <span class="token literal-property property">autoplay</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="30"></td><td><pre>        <span class="token comment">// 设置视频是否为直播类型，将决定是否渲染时间轴等控件，以及区分点直播的处理逻辑。</span></pre></td></tr><tr><td data-num="31"></td><td><pre>        <span class="token comment">// 默认为 false</span></pre></td></tr><tr><td data-num="32"></td><td><pre>        <span class="token literal-property property">live</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="33"></td><td><pre>        <span class="token comment">// 事件监听回调函数</span></pre></td></tr><tr><td data-num="34"></td><td><pre>        <span class="token function-variable function">listener</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="35"></td><td><pre>          <span class="token comment">// 进行事件处理</span></pre></td></tr><tr><td data-num="36"></td><td><pre>        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="37"></td><td><pre>      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="38"></td><td><pre>    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="39"></td><td><pre>  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr><tr><td data-num="40"></td><td><pre><span class="token punctuation">&#125;</span><span class="token punctuation">,</span></pre></td></tr></table></figure><h1 id="协议对比"><a class="markdownIt-Anchor" href="#协议对比">#</a> 协议对比</h1>
+<div class="note default">
+<p>EZOPEN 协议（萤石私有流）、HLS 协议（标准流）、RTMP 协议（标准流），每种协议有各自的优点和缺点。下面以功能、性能、跨平台、扩展性进行详细比较</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>-</th>
+<th>HLS</th>
+<th>RTMP</th>
+<th>EZOPEN 协议</th>
+<th>萤石私有协议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>适用性</td>
+<td>适用 WEB/H5 接入</td>
+<td>只适用 WEB 接入</td>
+<td>只适用 UIKit 接入，支持 WEB (ActiveX) 接入</td>
+<td>只适用萤石 OpenSDK 接入</td>
+</tr>
+<tr>
+<td>出流速度</td>
+<td>首次取流延时 4-10 秒</td>
+<td>首次取流延时 2-4 秒</td>
+<td>首次取流延时 1 秒</td>
+<td>首次取流延时 1 秒</td>
+</tr>
+<tr>
+<td>优势</td>
+<td>跨平台性好，支持网页直接（包括微信）播放</td>
+<td>比 HLS 延时低，且支持与第三方云进行转码、录播</td>
+<td>取流速度快，高安全性，接入简单</td>
+<td>取流速度快，高安全性，功能齐全</td>
+</tr>
+</tbody>
+</table>
+
+      <div class="tags">
+          <a href="/tags/Vue-Video-Player-ezuikit-js-v-tcplayer/" rel="tag"><i class="ic i-tag"></i> Vue-Video-Player,ezuikit-js,v-tcplayer</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2022-03-31 10:55:58" itemprop="dateModified" datetime="2022-03-31T10:55:58+08:00">2022-03-31</time>
+  </span>
+  <span id="2022/03/29/computer-science/web/Video/" class="item leancloud_visitors" data-flag-title="直播Video播放器使用记录" title="阅读次数">
+      <span class="icon">
+        <i class="ic i-eye"></i>
+      </span>
+      <span class="text">阅读次数</span>
+      <span class="leancloud-visitors-count"></span>
+      <span class="text">次</span>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Zombies <i class="ic i-at"><em>@</em></i>
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="http://xchao.work/2022/03/29/computer-science/web/Video/" title="直播Video播放器使用记录">http://xchao.work/2022/03/29/computer-science/web/Video/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2022/03/28/computer-science/web/BaiduMap/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicitht3xtj20zk0m8k5v.jpg" title="Vue Baidu Map 百度地图的使用">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> web</span>
+  <h3>Vue Baidu Map 百度地图的使用</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2022/03/31/computer-science2/node/Day1/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipet8c1a2j20zk0m8kct.jpg" title="Node内置模块、模块化、npm包发布">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> Node</span>
+  <h3>Node内置模块、模块化、npm包发布</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#vue-video-player%E6%92%AD%E6%94%BE%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text"> Vue-Video-Player 播放器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%90%A4%E7%9F%B3%E4%BA%91%E6%92%AD%E6%94%BE%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text"> 萤石云播放器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%85%BE%E8%AE%AF%E4%BA%91%E6%92%AD%E6%94%BE%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text"> 腾讯云播放器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE%E5%AF%B9%E6%AF%94"><span class="toc-number">4.</span> <span class="toc-text"> 协议对比</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/2022/03/28/computer-science/web/BaiduMap/" rel="bookmark" title="Vue Baidu Map 百度地图的使用">Vue Baidu Map 百度地图的使用</a></li><li class="active"><a href="/2022/03/29/computer-science/web/Video/" rel="bookmark" title="直播Video播放器使用记录">直播Video播放器使用记录</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Zombies"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">Zombies</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">5</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">7</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">4</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL1dlYi1ab21iaWVz" title="https:&#x2F;&#x2F;github.com&#x2F;Web-Zombies"><i class="ic i-github"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS90YW5nLWRvdS1kb3UtNDAtNTk=" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;tang-dou-dou-40-59"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLz9mcm9tPWl0YWIjL3BsYXlsaXN0P2lkPTg4MTczODAyMA==" title="https:&#x2F;&#x2F;music.163.com&#x2F;?from&#x3D;itab#&#x2F;playlist?id&#x3D;881738020"><i class="ic i-cloud-music"></i></span>
+      <span class="exturl item about" data-url="aHR0cHM6Ly9hYm91dC5tZS95b3VybmFtZQ==" title="https:&#x2F;&#x2F;about.me&#x2F;yourname"><i class="ic i-address-card"></i></span>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-magic"></i>链接</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/friends/" rel="section"><i class="ic i-heart"></i>友達</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/link/" rel="section"><i class="ic i-star"></i>网址</a>
+  </li>
+
+  </ul>
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2022/03/28/computer-science/web/BaiduMap/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2022/03/31/computer-science2/node/Day1/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 前端">前端</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/web/" title="分类于 web">web</a>
+</div>
+
+    <span><a href="/2022/03/29/computer-science/web/Video/" title="直播Video播放器使用记录">直播Video播放器使用记录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 前端">前端</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/echarts/" title="分类于 Echarts">Echarts</a>
+</div>
+
+    <span><a href="/2022/04/06/computer-science/echarts/echarts%E7%BB%93%E5%90%88%E9%AB%98%E5%BE%B7API%E8%BF%9B%E8%A1%8C%E5%9C%B0%E5%9B%BE%E4%B8%8B%E9%92%BB/" title="Echarts结合高德API进行中国地图下钻">Echarts结合高德API进行中国地图下钻</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science3/" title="分类于 其他">其他</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science3/music/" title="分类于 音乐">音乐</a>
+</div>
+
+    <span><a href="/2022/03/26/computer-science3/music/singer/" title="音乐">音乐</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 前端">前端</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/web/" title="分类于 web">web</a>
+</div>
+
+    <span><a href="/2022/03/28/computer-science/web/BaiduMap/" title="Vue Baidu Map 百度地图的使用">Vue Baidu Map 百度地图的使用</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science2/" title="分类于 后端">后端</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science2/node/" title="分类于 Node">Node</a>
+</div>
+
+    <span><a href="/2022/03/31/computer-science2/node/Day1/" title="Node内置模块、模块化、npm包发布">Node内置模块、模块化、npm包发布</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2022</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Zombies @ Palpitate</span>
+  </div>
+  <div class="count">
+    <span class="post-meta-item-icon">
+      <i class="ic i-chart-area"></i>
+    </span>
+    <span title="站点总字数">15k 字</span>
+
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="ic i-coffee"></i>
+    </span>
+    <span title="站点阅读时长">14 分钟</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2022/03/29/computer-science/web/Video/',
+    favicon: {
+      show: "🎐~",
+      hide: "我消失啦~"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
